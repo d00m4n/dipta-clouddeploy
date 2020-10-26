@@ -17,7 +17,7 @@ MASTERIP=$(gcloud compute instances describe $MASTER --format='get(networkInterf
 NODE1IP=$(gcloud compute instances describe $NODE01 --format='get(networkInterfaces[0].networkIP)')
 NODE2IP=$(gcloud compute instances describe $NODE02 --format='get(networkInterfaces[0].networkIP)')
 PUBLIC_IP=$(gcloud compute instances describe dipta  --format='get(networkInterfaces[0].accessConfigs[0].natIP)')
-OWNER_IP=$(curl raw.queip.info | xargs)
+OWNER_IP=$(curl raw.queip.info)
 
 echo "Sending scripts to $MASTER"
 gcloud compute scp global.sh $MASTER:/tmp
