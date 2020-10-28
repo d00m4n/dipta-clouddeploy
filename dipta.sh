@@ -3,13 +3,16 @@
 MASTER="dipta"
 NODE01="dipta01"
 NODE02="dipta02"
+MASTERTYPE="e2-standard-2"
+NODE01TYPE="e2-standard-2"
+NODE02TYPE="e2-standard-2"
 DOMAIN=$1
 TOKEN=$2
 
 echo "Creating Machines"
-gcloud compute instances create $MASTER --image debian-10-buster-v20201014 --image-project debian-cloud
-gcloud compute instances create $NODE01 --image debian-10-buster-v20201014 --image-project debian-cloud
-gcloud compute instances create $NODE02 --image debian-10-buster-v20201014 --image-project debian-cloud
+gcloud compute instances create $MASTER --image debian-10-buster-v20201014 --image-project debian-cloud --machine-type $MASTERTYPE
+gcloud compute instances create $NODE01 --image debian-10-buster-v20201014 --image-project debian-cloud --machine-type $NODE01TYPE
+gcloud compute instances create $NODE02 --image debian-10-buster-v20201014 --image-project debian-cloud --machine-type $NODE02TYPE
 
 
 echo "Getting IPs"
@@ -52,5 +55,5 @@ echo "Final scrips"
 
 gcloud compute scp getup.sh dipta:/tmp
 gcloud compute ssh dipta --command "sudo mv /tmp/getup.sh /srv/docker/dipta-swarm && cd /srv/docker/dipta-swarm/ && sudo ./getup.sh"
-
+gcloud compute ssh dipta
 
